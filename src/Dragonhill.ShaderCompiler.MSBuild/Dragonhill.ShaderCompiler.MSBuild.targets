@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+    <UsingTask TaskName="Dragonhill.ShaderCompiler.MSBuild.GenerateResourceEntriesTask" AssemblyFile="$(DragonhillShaderCompilerTasksAssembly)" Condition="'$(DragonhillShaderCompilerEnabled)'"/>
+    <UsingTask TaskName="Dragonhill.ShaderCompiler.MSBuild.ShaderCompilerTask" AssemblyFile="$(DragonhillShaderCompilerTasksAssembly)" Condition="'$(DragonhillShaderCompilerEnabled)'"/>
+
+    <ItemGroup>
+        <ShaderFiles Include="**\*.vert" />
+        <ShaderFiles Include="**\*.frag" />
+        <ShaderFiles Include="**\*.tesc" />
+        <ShaderFiles Include="**\*.tese" />
+        <ShaderFiles Include="**\*.geom" />
+        <ShaderFiles Include="**\*.comp" />
+    </ItemGroup>
+
+    <!-- Tell the IDE which files are input and output -->
+    <ItemGroup>
+        <UpToDateCheckInput Include="@(ShaderFiles)" />
+        <UpToDateCheckBuilt Include="@(ShaderFiles->'$(IntermediateOutputPath)%(RelativeDir)%(FileName)%(Extension).spv')" />
+    </ItemGroup>
+
+    <!--
+    Not ideal to have a second task to transform the names...
+    But using the ShaderCompilerTask to transform the names did not work well, as it seems msbuild forgets the output if the incremental task is not run
+    -->
+    <Target Name="PrepareShaderResourceNames" BeforeTargets="PrepareForBuild" Condition="'$(DragonhillShaderCompilerEnabled)'">
+        <GenerateResourceEntriesTask InputFiles="@(ShaderFiles)" OutputFiles="@(ShaderFiles->'$(IntermediateOutputPath)%(RelativeDir)%(FileName)%(Extension).spv')">
+            <Output TaskParameter="ResourceFiles" ItemName="EmbeddedResource" />
+        </GenerateResourceEntriesTask>
+    </Target>
+    
+    <Target Name="CompileShaders" Inputs="@(ShaderFiles)" Outputs="@(ShaderFiles->'$(IntermediateOutputPath)%(RelativeDir)%(FileName)%(Extension).spv')" AfterTargets="PrepareShaderResourceNames" Condition="'$(DragonhillShaderCompilerEnabled)'">
+        <ShaderCompilerTask InputFiles="@(ShaderFiles)" OutputFiles="@(ShaderFiles->'$(IntermediateOutputPath)%(RelativeDir)%(FileName)%(Extension).spv')" />
+
+        <!-- Required for cleaning the project -->
+        <ItemGroup>
+            <FileWrites Include="@(ShaderFiles->'$(IntermediateOutputPath)%(RelativeDir)%(FileName)%(Extension).spv')" />
+        </ItemGroup>
+    </Target>
+</Project>

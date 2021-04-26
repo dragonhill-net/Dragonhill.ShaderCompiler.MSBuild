@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <TaskOutputDirectory>..\..\src\Dragonhill.ShaderCompiler.MSBuild\bin\Debug\$(TargetFramework)\</TaskOutputDirectory>
+        <!-- Stop the IDE from loading our custom task inside the IDE -->
+        <DragonhillShaderCompilerEnabled Condition="'$(DragonhillShaderCompilerEnabled)' == ''">False</DragonhillShaderCompilerEnabled>
+        <DragonhillShaderCompilerTasksAssembly>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).dll</DragonhillShaderCompilerTasksAssembly>
+    </PropertyGroup>
+
+    <Import Project="$(TaskOutputDirectory)Dragonhill.ShaderCompiler.MSBuild.props" />
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Dragonhill.ShaderCompiler.MSBuild\Dragonhill.ShaderCompiler.MSBuild.csproj" />
+    </ItemGroup>
+    
+    <Import Project="$(TaskOutputDirectory)Dragonhill.ShaderCompiler.MSBuild.targets" />
+
+    <Target Name="Test" BeforeTargets="">
+        <Message Importance="High" Text="A Message" />
+    </Target>
+
+</Project>

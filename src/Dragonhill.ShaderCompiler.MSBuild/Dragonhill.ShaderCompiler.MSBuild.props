@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <DragonhillShaderCompilerEnabled Condition="'$(DragonhillShaderCompilerEnabled)' == ''">True</DragonhillShaderCompilerEnabled>
+        <DragonhillShaderCompilerTasksAssembly Condition="'$(DragonhillShaderCompilerTasksAssembly)' == ''">$(MSBuildThisFileDirectory)..\tasks\netstandard2.0\$(MSBuildThisFileName).dll</DragonhillShaderCompilerTasksAssembly>
+    </PropertyGroup>
+</Project>

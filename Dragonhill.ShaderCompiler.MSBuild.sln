@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragonhill.ShaderCompiler.MSBuild", "src\Dragonhill.ShaderCompiler.MSBuild\Dragonhill.ShaderCompiler.MSBuild.csproj", "{27C59547-B35B-4309-B5F9-A40DD6721F95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "test\TestProject\TestProject.csproj", "{594AEB3B-E655-4ACF-9507-E45B0500C110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27C59547-B35B-4309-B5F9-A40DD6721F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C59547-B35B-4309-B5F9-A40DD6721F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C59547-B35B-4309-B5F9-A40DD6721F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C59547-B35B-4309-B5F9-A40DD6721F95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{594AEB3B-E655-4ACF-9507-E45B0500C110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{594AEB3B-E655-4ACF-9507-E45B0500C110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{594AEB3B-E655-4ACF-9507-E45B0500C110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{594AEB3B-E655-4ACF-9507-E45B0500C110}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <Version Condition="$(Version) == ''">0.0.1-alpha1</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Authors>Stefan Klinger</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>dragonhill.png</PackageIcon>
+        <PackageProjectUrl>https://github.com/dragonhill-net/Dragonhill.ShaderCompiler.MSBuild</PackageProjectUrl>
+        <Description>A msbuild task to compile shader files using the glslc compiler. Requires Vulkan SDK.</Description>
+        <Copyright>Copyright ©$([System.DateTime]::Now.Year) Stefan Klinger</Copyright>
+        <PackageTags>Shader;Vulkan;SPIR-V;GLSL</PackageTags>
+        <RepositoryUrl>https://github.com/dragonhill-net/Dragonhill.ShaderCompiler.MSBuild</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <!-- Disable nuget warning about empty lib -->
+        <NoWarn>NU5100</NoWarn>
+
+        <!-- Do not depend on any framework, netstandard2.0 should work for all recent msbuild types -->
+        <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+        
+        <!-- 
+        See https://natemcmaster.com/blog/2017/07/05/msbuild-task-in-nuget/
+        Place the task dll files in a non standard location to not get them referenced automatically.
+        And disable warnings from nuget complaining about it.
+        -->
+        <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.9.0">
+            <PrivateAssets>all</PrivateAssets> <!-- Stop nuget from adding this as a dependency -->
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Dragonhill.ShaderCompiler.MSBuild.props">
+            <PackagePath>build\</PackagePath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Include="Dragonhill.ShaderCompiler.MSBuild.targets">
+            <PackagePath>build\</PackagePath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Include="nuget\dragonhill.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+</Project>

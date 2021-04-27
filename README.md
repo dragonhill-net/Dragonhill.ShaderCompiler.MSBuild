@@ -1,4 +1,4 @@
-﻿# MSBuild SPIR-V Shader Compiler ![Nuget](https://img.shields.io/nuget/v/Dragonhill.ShaderCompiler.MSBuild)
+﻿# MSBuild SPIR-V Shader Compiler [![Nuget](https://img.shields.io/nuget/v/Dragonhill.ShaderCompiler.MSBuild)](https://www.nuget.org/packages/Dragonhill.ShaderCompiler.MSBuild/)
 
 ## Installation
 

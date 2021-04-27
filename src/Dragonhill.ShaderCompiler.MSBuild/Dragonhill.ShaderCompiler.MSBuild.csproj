@@ -17,6 +17,8 @@
         <PackageTags>Shader;Vulkan;SPIR-V;GLSL</PackageTags>
         <RepositoryUrl>https://github.com/dragonhill-net/Dragonhill.ShaderCompiler.MSBuild</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        
+        <PackageOutputPath>$(ProjectDir)..\..\releases\</PackageOutputPath>
 
         <!-- Disable nuget warning about empty lib -->
         <NoWarn>NU5100</NoWarn>
@@ -54,4 +56,20 @@
     <ItemGroup>
         <None Include="nuget\dragonhill.png" Pack="true" PackagePath="\" />
     </ItemGroup>
+    
+    <Target Name="ReleasePackGitTag">
+        <Exec Command="git describe --tags" ConsoleToMSBuild="true" IgnoreExitCode="true" StandardOutputImportance="low" EchoOff="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="CurrentGitTag" />
+            <Output TaskParameter="ExitCode" PropertyName="GitExitCode" />
+        </Exec>
+        <Error Text="Could not read current git tag!" Condition="'$(GitExitCode)'!='0'" />
+        
+        <PropertyGroup>
+            <Version>$([System.Text.RegularExpressions.Regex]::Match($(CurrentGitTag), `^version-(\d+\.\d+\.\d+(-\w+)?)$`).get_Groups().get_Item(1).ToString())</Version>
+        </PropertyGroup>
+        <Error Text="Not a valid version Tag: $(CurrentGitTag)" Condition="'$(Version)'==''" />
+
+        <MSBuild Projects="$(MSBuildThisFile)" Targets="Clean" Properties="Version=$(Version)" />
+        <MSBuild Projects="$(MSBuildThisFile)" Targets="pack" Properties="Version=$(Version)" />
+    </Target>
 </Project>

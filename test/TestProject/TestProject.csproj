@@ -2,10 +2,10 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
-        <TaskOutputDirectory>..\..\src\Dragonhill.ShaderCompiler.MSBuild\bin\Debug\$(TargetFramework)\</TaskOutputDirectory>
+        <TaskOutputDirectory>$(MSBuildThisFileDirectory)..\..\src\Dragonhill.ShaderCompiler.MSBuild\bin\Debug\netstandard2.0\</TaskOutputDirectory>
         <!-- Stop the IDE from loading our custom task inside the IDE -->
         <DragonhillShaderCompilerEnabled Condition="'$(DragonhillShaderCompilerEnabled)' == ''">False</DragonhillShaderCompilerEnabled>
-        <DragonhillShaderCompilerTasksAssembly>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).dll</DragonhillShaderCompilerTasksAssembly>
+        <DragonhillShaderCompilerTasksAssembly>$(TaskOutputDirectory)Dragonhill.ShaderCompiler.MSBuild.dll</DragonhillShaderCompilerTasksAssembly>
     </PropertyGroup>
 
     <Import Project="$(TaskOutputDirectory)Dragonhill.ShaderCompiler.MSBuild.props" />
@@ -15,9 +15,5 @@
     </ItemGroup>
     
     <Import Project="$(TaskOutputDirectory)Dragonhill.ShaderCompiler.MSBuild.targets" />
-
-    <Target Name="Test" BeforeTargets="">
-        <Message Importance="High" Text="A Message" />
-    </Target>
 
 </Project>

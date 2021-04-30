@@ -20,7 +20,7 @@ namespace Dragonhill.ShaderCompiler.MSBuild
 
             if (string.IsNullOrWhiteSpace(vulkanSdkPath))
             {
-                Log.LogError("Could not find the vulkan SDK environment variable");
+                Log.LogError("Could not find the vulkan SDK environment variable (VULKAN_SDK)");
                 return false;
             }
 
@@ -30,7 +30,7 @@ namespace Dragonhill.ShaderCompiler.MSBuild
                 return false;
             }
 
-            var binPath = Path.Combine(vulkanSdkPath, Environment.Is64BitOperatingSystem ? "Bin" : "Bin32");
+            var binPath = Path.Combine(vulkanSdkPath, Environment.Is64BitOperatingSystem ? "bin" : "bin32");
             if (!Directory.Exists(binPath))
             {
                 Log.LogError("The vulkan SDK bin directory does not exist");
